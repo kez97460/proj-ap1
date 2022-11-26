@@ -28,3 +28,9 @@ int length_of_list( noeud* tete ) ;
 float* linked_list_to_array( noeud* tete ) ; // useless here ?
 
 /////////////////////////////////// ( fonctions statistiques )
+
+float min_of_list( noeud* tete ) ;
+float max_of_list( noeud* tete ) ;
+float mediane_of_list( noeud* tete ) ;
+float moyenne_of_list( noeud* tete ) ;
+float ecart_type_of_list( noeud* tete ) ;
