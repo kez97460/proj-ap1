@@ -25,4 +25,6 @@ noeud* concat_list( noeud* tete_debut , noeud* tete_fin ) ;
 noeud* sort_list( noeud* tete ) ; 
 noeud* add_to_end_of_list( noeud* tete , float data ) ;
 int length_of_list( noeud* tete ) ;
-float* linked_list_to_array( noeud* tete ) ; // ici ne renvoie que les montants parce que c'est plus facile à tester
+float* linked_list_to_array( noeud* tete ) ; // useless here ?
+
+/////////////////////////////////// ( fonctions statistiques )
