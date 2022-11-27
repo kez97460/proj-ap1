@@ -14,6 +14,7 @@ Une description de chaque fonction est présente la ligne avant sa définition
 
 #include "float_lists_utils.h"
 
+// type full_data va contenir toutes les infos utiles du .csv
 typedef struct 
 {
 noeud* usage_of_backing_film ; // colonne 7
