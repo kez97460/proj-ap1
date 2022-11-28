@@ -25,12 +25,9 @@ struct no* suiv ;
 noeud ;
 
 noeud* add_noeud( noeud* tete , float data ) ;
-noeud* miroir_of_list( noeud* tete ) ;
 noeud* concat_list( noeud* tete_debut , noeud* tete_fin ) ;
 noeud* sort_list( noeud* tete ) ; 
-noeud* add_to_end_of_list( noeud* tete , float data ) ;
 int length_of_list( noeud* tete ) ;
-float* linked_list_to_array( noeud* tete ) ; // useless here ?
 
 /////////////////////////////////// ( fonctions statistiques )
 
