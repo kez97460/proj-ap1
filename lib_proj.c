@@ -5,6 +5,7 @@
 #include "float_lists_utils.h"
 #include "lib_proj.h"
 
+// lit un .csv et stocke les données . Les listes sont par ORDRE CHRONOLOGIQUE DECROISSANT
 colonne* read_data( char* filename )
 {
 char name[100] ;
