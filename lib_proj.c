@@ -36,3 +36,11 @@ for( int i = 1 ; i<=nb_colonnes_total ; i++ ) // remplissage des listes
 return res ;
 }
 
+// affiche le nom des colonnes.
+void print_nom_colonnes( colonne* tableau , int length )
+{
+for ( int i = 0 ; i<length ; i++ )
+    {
+    printf("Colonne %d : %s \n",i+1,tableau[i].nom) ;
+    }
+}

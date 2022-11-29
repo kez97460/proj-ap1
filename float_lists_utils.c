@@ -6,6 +6,20 @@
 
 /////////////////////////////////////////////// ( Fonctions )
 
+// affiche les premiers éléments d'une liste chainee
+void print_list( noeud* tete , int n_max )
+{
+printf("{") ;
+while( tete != NULL && n_max > 0 )
+	{
+	printf(" %f ",tete->data) ;
+	tete = tete->suiv ;
+	n_max-- ;
+	}
+if( tete == NULL ) printf("}\n") ;
+else printf("...\n") ;
+}
+
 // renvoie la nouvelle liste après ajout d'un noeud en tête ( préciser le data du noeud a ajouter )
 noeud* add_noeud( noeud* tete , float data ) 
 {
