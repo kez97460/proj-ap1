@@ -22,6 +22,7 @@ noeud* data ;
 }
 colonne ;
 
+colonne* read_data( char* filename ) ;
 
 #endif
 
