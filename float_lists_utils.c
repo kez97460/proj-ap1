@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////// ( Fonctions )
 
-// affiche les premiers éléments d'une liste chainee
+// affiche les premiers éléments d'une liste chainee ( affiche toute la liste si elle a moins de n_max elements )
 void print_list( noeud* tete , int n_max )
 {
 printf("{") ;

@@ -44,3 +44,13 @@ for ( int i = 0 ; i<length ; i++ )
     printf("Colonne %d : %s \n",i+1,tableau[i].nom) ;
     }
 }
+
+// affiche un apercu des données 
+void print_data_sample( colonne* tableau , int length , int n_max )
+{
+for ( int i = 0 ; i<length ; i++ )
+    {
+    printf("%s : ",i+1,tableau[i].nom) ;
+    print_list(tableau[i].data,n_max) ;
+    }
+}
