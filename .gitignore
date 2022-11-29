@@ -58,3 +58,9 @@ Dataset-for-ISMIN-2022/training/CMP-training-055.csv
 Dataset-for-ISMIN-2022/training/CMP-training-056.csv
 Dataset-for-ISMIN-2022/training/CMP-training-057.csv
 Dataset-for-ISMIN-2022/training/CMP-training-058.csv
+appli.exe
+CMP-training-000.csv
+float_lists_utils.o
+lib_proj.o
+main_test.c
+main_test.o
