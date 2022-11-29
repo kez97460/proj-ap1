@@ -24,6 +24,7 @@ struct no* suiv ;
 } 
 noeud ;
 
+void print_list( noeud* tete , int n_max ) ;
 noeud* add_noeud( noeud* tete , float data ) ;
 noeud* concat_list( noeud* tete_debut , noeud* tete_fin ) ;
 noeud* sort_list( noeud* tete ) ; 
