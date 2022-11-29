@@ -10,9 +10,8 @@ colonne* read_data( char* filename )
 char name[100] ;
 int j ;
 int nb_colonnes_total = 25 ;
-int nb_colonnes_utiles = 19 ; 
 FILE* file = fopen(filename,"r") ;
-colonne* res = (colonne*) malloc(nb_colonnes_utiles*sizeof(colonne)) ; 
+colonne* res = (colonne*) malloc(NB_COLS_UTILES*sizeof(colonne)) ; 
 for( int i = 1 ; i<=nb_colonnes_total ; i++ ) // on parcourt la 1ere ligne et initialise les listes
     {
     fscanf(file,"%s",name) ; // les noms des colonnes sont au début du .csv
@@ -37,18 +36,18 @@ return res ;
 }
 
 // affiche le nom des colonnes.
-void print_nom_colonnes( colonne* tableau , int length )
+void print_nom_colonnes( colonne* tableau )
 {
-for ( int i = 0 ; i<length ; i++ )
+for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
     {
     printf("Colonne %d : %s \n",i+1,tableau[i].nom) ;
     }
 }
 
 // affiche un apercu des données 
-void print_data_sample( colonne* tableau , int length , int n_max )
+void print_data_sample( colonne* tableau , int n_max )
 {
-for ( int i = 0 ; i<length ; i++ )
+for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
     {
     printf("%s : ",i+1,tableau[i].nom) ;
     print_list(tableau[i].data,n_max) ;
