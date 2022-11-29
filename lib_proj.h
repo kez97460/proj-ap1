@@ -10,8 +10,8 @@ Une description de chaque fonction est présente la ligne avant sa définition
 >> Lignes de code modifiables :
 */
 #ifndef LIB_PROJ_H
-#define LIB_PROJ_H
 
+#define LIB_PROJ_H
 #include "float_lists_utils.h"
 
 
@@ -23,6 +23,8 @@ noeud* data ;
 colonne ;
 
 colonne* read_data( char* filename ) ;
+void print_nom_colonnes( colonne* tableau , int length ) ;
+void print_data_sample( colonne* tableau , int length , int n_max ) ;
 
 #endif
 
