@@ -2,6 +2,8 @@
 
 ## Intro
 
+# modifier read_data qui est moche
+
 Ce projet a pour objectif le traitement de données concernant le polissage chimico-mécanique de plaques semi-conductrices ( wafers ).
 
 L'ensemble des données est réparti dans une cinquantaine de tableaux ( fichiers .csv ) qu'il faudra lire.

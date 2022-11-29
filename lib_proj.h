@@ -13,14 +13,15 @@ Une description de chaque fonction est présente la ligne avant sa définition
 
 #define LIB_PROJ_H
 #define NB_COLS_UTILES 19
+#define NB_COLS_TOTAL 25
 
 #include "float_lists_utils.h"
 
 
-typedef struct 
+typedef struct col
 {
 char nom[100] ;
-noeud* data ;
+noeud* liste ;
 }
 colonne ;
 
