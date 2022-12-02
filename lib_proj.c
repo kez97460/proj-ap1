@@ -24,25 +24,23 @@ for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // on parcourt la 1ere ligne et initia
     }
 float temp ;
 char bin ;
-int not_empty = 1; 
-while( not_empty > 0 )
+int not_empty ; 
+do
     {
     j = 0 ;
     for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // remplissage des listes
         {
         if ( i != 5 ) not_empty = fscanf(file,"%f ",&temp) ; // STAGE ( col 5 ) fait buguer
         else not_empty = fscanf(file,"%c ",&bin) ;
-        if ( i > 6 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
+        if ( i > 6 && not_empty > 0 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
             {
             res[j].liste = add_noeud(res[j].liste,temp) ;
             j++ ;
             }
         }
-    }
-for( j = 0 ; j<NB_COLS_UTILES ; j++ )
-    {
-        res[j].liste = res[j].liste->suiv ; // on retire un 0 parasite . 
-    }
+    } 
+while( not_empty > 0 ) ;
+
 return res ;
 }
 
