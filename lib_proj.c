@@ -5,6 +5,33 @@
 #include "float_lists_utils.h"
 #include "lib_proj.h"
 
+/////////////////////////////////// ( listes de wafers )
+
+// renvoie la nouvelle liste après ajout d'un noeud en tête ( préciser le data du noeud a ajouter )
+noeud_wafer* add_noeud_wafer( noeud_wafer* tete , wafer data ) 
+{
+noeud_wafer* nouveau = (noeud_wafer*) malloc(sizeof(noeud_wafer)) ;
+nouveau->data = data ;
+nouveau->suiv = tete ;
+return nouveau ;
+}
+
+// affiche les premiers éléments d'une liste chainee ( affiche toute la liste si elle a moins de n_max elements )
+void print_list_wafer( noeud_wafer* tete , int n_max )
+{
+printf("{") ;
+while( tete != NULL && n_max > 0 )
+	{
+	printf("( %li %c ) ",tete->data.id,tete->data.stage) ;
+	tete = tete->suiv ;
+	n_max-- ;
+	}
+if( tete == NULL ) printf("}\n") ;
+else printf("...\n") ;
+}
+
+/////////////////////////////////// ( others )
+
 // lit un .csv et stocke les données . Les listes sont par ORDRE CHRONOLOGIQUE DECROISSANT
 colonne* read_data( char* filename )
 {
@@ -63,65 +90,58 @@ for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
     }
 }
 
-
-
-void read_and_agregate_data( char* filename )
+data_for_agregation read_data_for_agreg( char* filename )
 {
 char name[100] ;
 int j ;
 FILE* file = fopen(filename,"r") ;
-colonne* res = (colonne*) malloc(NB_COLS_UTILES*sizeof(colonne)) ; 
-
-FILE* destination = fopen("agregated_data.csv","a+") ; // on stocke le résultat dans ce fichier
-
+colonne* data_cols_utiles = (colonne*) malloc(NB_COLS_UTILES*sizeof(colonne)) ; 
 for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // on parcourt la 1ere ligne et initialise les listes
     {
     fscanf(file,"%s ",name) ; // les noms des colonnes sont au début du .csv
     if ( i > 6 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
         {
-        res[j].liste = NULL ;
-        strcpy(res[j].nom,name) ;
+        data_cols_utiles[j].liste = NULL ;
+        strcpy(data_cols_utiles[j].nom,name) ;
         j++ ;
         }
     }
 float temp ;
-char current_stage , new_stage ; // stage : col.4 
-int current_id , new_id ; // id : col.5
+wafer current_wafer ;
+noeud_wafer* liste_wafer = NULL ;
 int not_empty ; 
-int first_change = 1 ; 
 do
     {
     j = 0 ;
     for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // remplissage des listes
         {
-        if ( i < 4 ) not_empty = fscanf(file,"%f ",&temp) ; //colonnes 1 à 3 inutiles
-        if ( i = 4 ) not_empty = fscanf(file,"%c ",&new_stage) ; 
-        if ( i = 5 ) not_empty = fscanf(file,"%f ",&new_id) ;
-        if ( i > 6 && not_empty > 0 ) // condition qui donne les colonnes de données uniquement ( Cols 7 à 25 -> i>6 )
+        printf("lol") ;
+        switch(i) 
             {
-            res[j].liste = add_noeud(res[j].liste,temp) ;
+            case 4 :
+                printf("lol") ;
+                not_empty = fscanf(file,"%li ",&current_wafer.id) ;
+                break;
+            case 5 :
+                printf("lol") ;
+                not_empty = fscanf(file,"%c ",&current_wafer.stage) ;
+                break;
+            default :
+                 printf("lol") ;
+                not_empty = fscanf(file,"%f ",&temp) ;
+            }
+        if ( i > 6 && not_empty > 0 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
+            {
+            data_cols_utiles[j].liste = add_noeud(data_cols_utiles[j].liste,temp) ;
             j++ ;
             }
-        if ( not_empty > 0 )
-            {
-            if ( new_id != current_id || new_stage != current_stage )
-                {
-                if ( first_change < 1 ) // 1er changement = initialisation, on ne le considère pas
-                    {
-                    fprintf(destination,"%d\t%c\t",current_id,current_stage) ; // changement de wafer
-                    for ( int k = 0 ; k<NB_COLS_UTILES ; k++ )
-                        {
-                        fprintf(destination,"%f\t",moyenne_of_list(res[k].liste)) ;
-                        res[k].liste = NULL ;
-                        } 
-                    fprintf(destination,"\n") ;
-                    current_id = new_id ;
-                    current_stage = new_stage ;
-                    }
-                else first_change = 0 ;
-                }
-            }
         }
+    add_noeud_wafer(liste_wafer,current_wafer) ;
     } 
 while( not_empty > 0 ) ;
+fclose(file) ;
+data_for_agregation full_data ;
+full_data.data_cols_utiles = data_cols_utiles ;
+full_data.wafers = liste_wafer ;
 }
+

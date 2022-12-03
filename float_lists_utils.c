@@ -240,3 +240,4 @@ float ecart_type_of_list( noeud* tete )
 return sqrt(variance_of_list(tete)) ;
 }
 
+

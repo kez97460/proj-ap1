@@ -25,10 +25,39 @@ noeud* liste ;
 }
 colonne ;
 
+typedef struct wa
+{
+long id ;
+char stage ; // A ou B 
+}
+wafer ;
+
+typedef struct no_w 
+{
+wafer data ;
+struct no_w* suiv ;
+} 
+noeud_wafer ;
+
+typedef struct dfa
+{
+noeud_wafer* wafers ;
+colonne* data_cols_utiles ;
+}
+data_for_agregation ;
+
+/////////////////////////////////// ( question 4 -> listes de wafers )
+noeud_wafer* add_noeud_wafer( noeud_wafer* tete , wafer data ) ;
+void print_list_wafer( noeud_wafer* tete , int n_max ) ;
+
+/////////////////////////////////// ( autres )
 colonne* read_data( char* filename ) ;
 void print_nom_colonnes( colonne* tableau ) ;
 void print_data_sample( colonne* tableau , int n_max ) ;
-void read_and_agregate_data( char* filename ) ;
+
+data_for_agregation read_data_for_agreg( char* filename ) ;
+
+
 
 #endif
 
