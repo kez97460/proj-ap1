@@ -58,7 +58,11 @@ do
     for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // remplissage des listes
         {
         if ( i != 5 ) not_empty = fscanf(file,"%f ",&temp) ; // STAGE ( col 5 ) fait buguer
-        else not_empty = fscanf(file,"%c ",&bin) ;
+        else 
+            {
+            not_empty = fscanf(file,"%c ",&bin) ;
+            printf("HI") ;
+            }
         if ( i > 6 && not_empty > 0 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
             {
             res[j].liste = add_noeud(res[j].liste,temp) ;
@@ -90,58 +94,66 @@ for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
     }
 }
 
-data_for_agregation read_data_for_agreg( char* filename )
+noeud_wafer* read_wafers( char* filename )
 {
 char name[100] ;
 int j ;
 FILE* file = fopen(filename,"r") ;
-colonne* data_cols_utiles = (colonne*) malloc(NB_COLS_UTILES*sizeof(colonne)) ; 
 for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // on parcourt la 1ere ligne et initialise les listes
     {
     fscanf(file,"%s ",name) ; // les noms des colonnes sont au début du .csv
-    if ( i > 6 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
-        {
-        data_cols_utiles[j].liste = NULL ;
-        strcpy(data_cols_utiles[j].nom,name) ;
-        j++ ;
-        }
     }
 float temp ;
+char stage ;
+int id ;
 wafer current_wafer ;
-noeud_wafer* liste_wafer = NULL ;
 int not_empty ; 
+noeud_wafer* liste_wafer = NULL ;
 do
     {
     j = 0 ;
     for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // remplissage des listes
         {
-        printf("lol") ;
-        switch(i) 
-            {
-            case 4 :
-                printf("lol") ;
-                not_empty = fscanf(file,"%li ",&current_wafer.id) ;
-                break;
-            case 5 :
-                printf("lol") ;
-                not_empty = fscanf(file,"%c ",&current_wafer.stage) ;
-                break;
-            default :
-                 printf("lol") ;
-                not_empty = fscanf(file,"%f ",&temp) ;
-            }
-        if ( i > 6 && not_empty > 0 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
-            {
-            data_cols_utiles[j].liste = add_noeud(data_cols_utiles[j].liste,temp) ;
-            j++ ;
-            }
+        if ( i == 5 ) not_empty = fscanf(file,"%c ",&stage) ;
+        else if ( i == 4 ) not_empty = fscanf(file,"%li ",&id) ;
+        else not_empty = fscanf(file,"%f ",&temp) ; // STAGE ( col 5 ) fait buguer
         }
-    add_noeud_wafer(liste_wafer,current_wafer) ;
+    current_wafer.id = id ;
+    current_wafer.stage = stage ;
+    liste_wafer = add_noeud_wafer(liste_wafer,current_wafer) ;
     } 
 while( not_empty > 0 ) ;
 fclose(file) ;
-data_for_agregation full_data ;
-full_data.data_cols_utiles = data_cols_utiles ;
-full_data.wafers = liste_wafer ;
+return liste_wafer ;
+}
+
+void agregate_data( noeud_wafer* liste_wafer , colonne* full_data , char* filename )
+{
+wafer current_wafer = liste_wafer->data ;
+float tab_moyennes[NB_COLS_UTILES] ; // somme des valeurs pour une wafer
+int nb_vals ; // nombres de vals pour une wafer 
+
+FILE* destination = fopen(filename,"a+") ;
+
+while( liste_wafer != NULL )
+    {
+    if ( liste_wafer->data.id != current_wafer.id )
+        {
+        for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
+            {
+            
+            }
+        }
+    else
+        {
+        for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
+            {
+            tab_moyennes[i] += full_data[i].liste->data ;
+            full_data[i].liste = full_data[i].liste->suiv ; 
+            }
+        liste_wafer = liste_wafer->suiv ;
+        nb_vals += 1 ;
+        }
+    }
 }
 

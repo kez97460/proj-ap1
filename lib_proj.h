@@ -14,6 +14,7 @@ Une description de chaque fonction est présente la ligne avant sa définition
 #define LIB_PROJ_H
 #define NB_COLS_UTILES 19
 #define NB_COLS_TOTAL 25
+#define NB_CSV 60
 
 #include "float_lists_utils.h"
 
@@ -39,12 +40,7 @@ struct no_w* suiv ;
 } 
 noeud_wafer ;
 
-typedef struct dfa
-{
-noeud_wafer* wafers ;
-colonne* data_cols_utiles ;
-}
-data_for_agregation ;
+
 
 /////////////////////////////////// ( question 4 -> listes de wafers )
 noeud_wafer* add_noeud_wafer( noeud_wafer* tete , wafer data ) ;
@@ -55,7 +51,7 @@ colonne* read_data( char* filename ) ;
 void print_nom_colonnes( colonne* tableau ) ;
 void print_data_sample( colonne* tableau , int n_max ) ;
 
-data_for_agregation read_data_for_agreg( char* filename ) ;
+noeud_wafer* read_wafers( char* filename ) ;
 
 
 
