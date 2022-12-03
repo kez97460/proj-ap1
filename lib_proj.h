@@ -28,6 +28,7 @@ colonne ;
 colonne* read_data( char* filename ) ;
 void print_nom_colonnes( colonne* tableau ) ;
 void print_data_sample( colonne* tableau , int n_max ) ;
+void read_and_agregate_data( char* filename ) ;
 
 #endif
 

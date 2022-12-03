@@ -40,7 +40,7 @@ do
         }
     } 
 while( not_empty > 0 ) ;
-fclose(filename) ;
+fclose(file) ;
 return res ;
 }
 
@@ -124,6 +124,4 @@ do
         }
     } 
 while( not_empty > 0 ) ;
-
-return res ;
 }
