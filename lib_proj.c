@@ -40,7 +40,7 @@ do
         }
     } 
 while( not_empty > 0 ) ;
-
+fclose(filename) ;
 return res ;
 }
 
