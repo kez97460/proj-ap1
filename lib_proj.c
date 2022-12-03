@@ -37,7 +37,8 @@ colonne* read_data( char* filename )
 {
 char name[100] ;
 int j ;
-FILE* file = fopen(filename,"r") ;
+FILE* file ;
+file = fopen(filename,"r") ;
 colonne* res = (colonne*) malloc(NB_COLS_UTILES*sizeof(colonne)) ; 
 for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // on parcourt la 1ere ligne et initialise les listes
     {
@@ -98,7 +99,8 @@ noeud_wafer* read_wafers( char* filename )
 {
 char name[100] ;
 int j ;
-FILE* file = fopen(filename,"r") ;
+FILE* file ;
+file = fopen(filename,"r") ;
 for( int i = 1 ; i<=NB_COLS_TOTAL ; i++ ) // on parcourt la 1ere ligne et initialise les listes
     {
     fscanf(file,"%s ",name) ; // les noms des colonnes sont au début du .csv
@@ -126,28 +128,28 @@ while( not_empty > 0 ) ;
 fclose(file) ;
 return liste_wafer ;
 }
-/*
+
 void agregate_data( noeud_wafer* liste_wafer , colonne* full_data , char* destination_name )
 {
 int current_wafer_id = liste_wafer->data.id ;
 float tab_moyennes[NB_COLS_UTILES] ; // somme des valeurs pour une wafer
 int nb_vals ; // nombres de vals pour une wafer 
 FILE* destination = fopen(destination_name,"w+") ;
-printf("test") ;
 if ( destination != NULL )
     {
     while( liste_wafer != NULL )
         {
         if ( liste_wafer->data.id != current_wafer_id )
             {
-            fprintf(destination,"%li\t",current_wafer_id) ;
+            fprintf(destination,"%li\t",current_wafer_id) ;// printf("%li\t",current_wafer_id) ;
             for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
                 {
                 tab_moyennes[i] /= nb_vals ;
-                fprintf(destination,"%f",tab_moyennes[i]) ;
+                fprintf(destination,"%f\t",tab_moyennes[i]) ;// printf("%f ",tab_moyennes[i]) ;
                 tab_moyennes[i] = 0 ;
                 }
             fprintf(destination,"\n") ;
+            //printf("%d\t",nb_vals) ;
             nb_vals = 0 ;
             current_wafer_id = liste_wafer->data.id ;
             }
@@ -162,4 +164,3 @@ if ( destination != NULL )
     }
 fclose(destination) ;
 }
-*/
