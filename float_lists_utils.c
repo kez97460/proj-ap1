@@ -167,7 +167,7 @@ if ( tete != NULL)
 	}
 printf("Error : min of empty list\n") ;
 }
-
+ 
 //renvoie le maximum d'une liste
 float max_of_list( noeud* tete )
 {
