@@ -46,6 +46,8 @@ noeud_wafer ;
 noeud_wafer* add_noeud_wafer( noeud_wafer* tete , wafer data ) ;
 void print_list_wafer( noeud_wafer* tete , int n_max ) ;
 
+//void agregate_data( noeud_wafer* liste_wafer , colonne* full_data , char* destination_name ) ;
+
 /////////////////////////////////// ( autres )
 colonne* read_data( char* filename ) ;
 void print_nom_colonnes( colonne* tableau ) ;

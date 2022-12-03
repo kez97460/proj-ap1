@@ -61,7 +61,6 @@ do
         else 
             {
             not_empty = fscanf(file,"%c ",&bin) ;
-            printf("HI") ;
             }
         if ( i > 6 && not_empty > 0 ) // condition qui donne les colonnes utiles uniquement ( Cols 7 à 25 -> i>6 )
             {
@@ -94,6 +93,7 @@ for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
     }
 }
 
+// lecture d'un csv et récupération des données des wafers
 noeud_wafer* read_wafers( char* filename )
 {
 char name[100] ;
@@ -126,26 +126,31 @@ while( not_empty > 0 ) ;
 fclose(file) ;
 return liste_wafer ;
 }
-
-void agregate_data( noeud_wafer* liste_wafer , colonne* full_data , char* filename )
+/*
+void agregate_data( noeud_wafer* liste_wafer , colonne* full_data , char* destination_name )
 {
-wafer current_wafer = liste_wafer->data ;
+int current_wafer_id = liste_wafer->data.id ;
 float tab_moyennes[NB_COLS_UTILES] ; // somme des valeurs pour une wafer
 int nb_vals ; // nombres de vals pour une wafer 
-
-FILE* destination = fopen(filename,"a+") ;
-
-while( liste_wafer != NULL )
+FILE* destination = fopen(destination_name,"w+") ;
+printf("test") ;
+if ( destination != NULL )
     {
-    if ( liste_wafer->data.id != current_wafer.id )
+    while( liste_wafer != NULL )
         {
-        for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
+        if ( liste_wafer->data.id != current_wafer_id )
             {
-            
+            fprintf(destination,"%li\t",current_wafer_id) ;
+            for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
+                {
+                tab_moyennes[i] /= nb_vals ;
+                fprintf(destination,"%f",tab_moyennes[i]) ;
+                tab_moyennes[i] = 0 ;
+                }
+            fprintf(destination,"\n") ;
+            nb_vals = 0 ;
+            current_wafer_id = liste_wafer->data.id ;
             }
-        }
-    else
-        {
         for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
             {
             tab_moyennes[i] += full_data[i].liste->data ;
@@ -155,5 +160,6 @@ while( liste_wafer != NULL )
         nb_vals += 1 ;
         }
     }
+fclose(destination) ;
 }
-
+*/
