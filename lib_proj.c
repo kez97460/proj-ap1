@@ -129,38 +129,40 @@ fclose(file) ;
 return liste_wafer ;
 }
 
-void agregate_data( noeud_wafer* liste_wafer , colonne* full_data , char* destination_name )
+int trouve_dizaine(int valeur_introduite) // trouve le chiffre des dizaines d'un nombre
+{
+    int reste = valeur_introduite%10;
+    return((valeur_introduite-reste)/10);
+}
+
+
+
+/////////////////////////////( l'enfer de la question 4 )
+
+void agregate_data( noeud_wafer* liste_wafer , noeud* liste_donnees , char* destination_name )
 {
 int current_wafer_id = liste_wafer->data.id ;
-float tab_moyennes[NB_COLS_UTILES] ; // somme des valeurs pour une wafer
+float moyenne ;
 int nb_vals ; // nombres de vals pour une wafer 
-FILE* destination = fopen(destination_name,"w+") ;
+FILE* destination = fopen(destination_name,"w") ;
 if ( destination != NULL )
     {
     while( liste_wafer != NULL )
         {
         if ( liste_wafer->data.id != current_wafer_id )
             {
-            fprintf(destination,"%li\t",current_wafer_id) ;// printf("%li\t",current_wafer_id) ;
-            for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
-                {
-                tab_moyennes[i] /= nb_vals ;
-                fprintf(destination,"%f\t",tab_moyennes[i]) ;// printf("%f ",tab_moyennes[i]) ;
-                tab_moyennes[i] = 0 ;
-                }
-            fprintf(destination,"\n") ;
-            //printf("%d\t",nb_vals) ;
+            fprintf(destination," Hi \t",current_wafer_id) ; printf("%li\t",current_wafer_id) ;
+            moyenne /= nb_vals ;
+            fprintf(destination,"there \n",moyenne) ; printf("%f\n",moyenne) ;
+            moyenne = 0 ;
             nb_vals = 0 ;
             current_wafer_id = liste_wafer->data.id ;
             }
-        for ( int i = 0 ; i<NB_COLS_UTILES ; i++ )
-            {
-            tab_moyennes[i] += full_data[i].liste->data ;
-            full_data[i].liste = full_data[i].liste->suiv ; 
-            }
+        moyenne += liste_donnees->data ;
+        liste_donnees = liste_donnees->suiv ; 
         liste_wafer = liste_wafer->suiv ;
         nb_vals += 1 ;
         }
+    fclose(destination) ;
     }
-fclose(destination) ;
 }
