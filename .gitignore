@@ -64,3 +64,6 @@ float_lists_utils.o
 lib_proj.o
 main_test.c
 main_test.o
+.vscode/settings.json
+CMP-training-003.csv
+Dataset-for-ISMIN-2022.zip

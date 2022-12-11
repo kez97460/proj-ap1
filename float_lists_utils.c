@@ -29,6 +29,12 @@ nouveau->suiv = tete ;
 return nouveau ;
 }
 
+noeud* suppr_noeud( noeud* tete) 
+{
+tete = tete->suiv ;
+return tete ;
+}
+
 // renvoie le miroir d'une liste chainee. En O(n)
 noeud* miroir_of_list( noeud* tete )
 {
@@ -230,7 +236,7 @@ if (len>0)
 		moy_carres += tete->data * tete->data ;
 		tete = tete->suiv ;
 		}
-	return ( moy_carres - moy*moy ) ;
+	return ( moy_carres/len - moy*moy ) ;
 	}
 printf("Error : variance of empty list \n") ;
 }
@@ -238,6 +244,32 @@ printf("Error : variance of empty list \n") ;
 float ecart_type_of_list( noeud* tete )
 {
 return sqrt(variance_of_list(tete)) ;
+}
+
+// supprime les vals trop éloignées de la moyenne ( ecart > k*sigma )
+noeud* suppr_k_sigma( noeud* liste , int k )
+{
+float sigma = ecart_type_of_list(liste) ;
+float moy = moyenne_of_list(liste) ;
+noeud* res = NULL ;
+while( liste != NULL )
+	{
+	if( liste->data > moy-(k*sigma) && liste->data < moy+(k*sigma) )
+		{
+		res = add_noeud(res,liste->data) ;
+		}
+	liste = liste->suiv ;
+	}
+return miroir_of_list(res) ;
+}
+
+void print_stats_liste(noeud* liste)
+{
+printf("Min : %f \n",min_of_list(liste));
+printf("Max : %f \n",max_of_list(liste)) ;
+printf("Moyenne : %f \n",moyenne_of_list(liste));
+printf("Mediane : %f \n",mediane_of_list(liste)) ;
+printf("Ecart-type : %f \n",ecart_type_of_list(liste)) ;
 }
 
 
